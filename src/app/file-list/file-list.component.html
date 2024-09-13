@@ -1,0 +1,72 @@
+<div class="container">
+    <h3>Archivos</h3>
+    
+
+    <div class="position-relative mb-3">
+     
+      <div class="position-absolute top-0 end-0">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" (click)="toggleDropdown()">
+            Acciones
+          </button>
+          <ul class="dropdown-menu" [class.show]="dropdownOpen">
+            <li><a class="dropdown-item" (click)="openNewFileModal()">Nuevo</a></li>
+            <li><a class="dropdown-item" href="#" (click)="deleteSelectedFiles()">Borrar</a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <!-- Table -->
+      <table class="table mt-4">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Dueños</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let file of files">
+            <td>
+              <input type="checkbox" (change)="toggleSelection(file)" />
+            </td>
+            <td>
+              <span
+                *ngIf="file.type === 0"
+                class="folder-icon"
+                title="{{ file.name }}"
+                [ngClass]="{ 'truncated': file.name.length > 10 }">
+                📁 {{ file.name.length > 10 ? (file.name | slice: 0:10) + '...' : file.name }}
+              </span>
+              <span
+                *ngIf="file.type === 1"
+                class="file-icon"
+                title="{{ file.name }}"
+                [ngClass]="{ 'truncated': file.name.length > 10 }">
+                📄 {{ file.name.length > 10 ? (file.name | slice: 0:10) + '...' : file.name }}
+              </span>
+            </td>
+            <td>{{ file.creation | date: 'MMM d, y' }}</td>
+            <td>
+              <ng-container *ngFor="let owner of file.owners; let i = index">
+                <img
+                  *ngIf="i < 3"
+                  [src]="owner.avatarUrl"
+                  [alt]="owner.name"
+                  class="owner-avatar"
+                  title="{{ owner.name }}" />
+              </ng-container>
+              <span
+                *ngIf="file.owners.length > 3"
+                class="more-owners">
+                +{{ file.owners.length - 3 }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  

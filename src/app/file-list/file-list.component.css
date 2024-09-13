@@ -1,0 +1,25 @@
+.table {
+    width: 100%;
+  }
+  
+  .folder-icon, .file-icon {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .owner-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+  
+  .more-owners {
+    font-size: 14px;
+    color: #999;
+  }
+  
+  .truncated {
+    cursor: pointer;
+  }
+  
